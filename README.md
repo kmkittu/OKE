@@ -12,7 +12,7 @@ In this workshop we develop Terraform script to setup Kubernetes Cluster.
 Open the Profile menu (User menu icon)  and click Tenancy: <your_tenancy_name>.
 The tenancy OCID is shown under Tenancy Information. Click Copy to copy it to your clipboard.
 
-![Tenancy](https://github.com/kmkittu/TerraformLB/blob/main/Tenancy.png)
+![Tenancy](https://github.com/kmkittu/OKE/blob/main/Tenancy.png)
 
 The tenancy OCID looks something like this
 ocid1.tenancy.oc1..<unique_ID>     (notice the word "tenancy" in it)
@@ -22,7 +22,7 @@ If you're signed in as the user to OCI console: Open the Profile menu (User menu
 If you're an administrator doing this for another user: Open the navigation menu. Under Governance and Administration, go to Identity and click Users. Select the user from the list.
 The user OCID is shown under User Information. Click Copy to copy it to your clipboard.
 
-![User OCID](https://github.com/kmkittu/TerraformLB/blob/main/User%20OCID.png)
+![User OCID](https://github.com/kmkittu/OKE/blob/main/User%20OCID.png)
 
 #### Private key 
 SSH key pair is required to login into OCI console
@@ -54,13 +54,14 @@ You can get the key's fingerprint with the following OpenSSL command. If you're 
 
 Also in other way when you upload the public key in the Console (In the user details page) , the fingerprint is also automatically displayed there. It looks something like this: 12:34:56:78:90:ab:cd:ef:12:34:56:78:90:ab:cd:ef
 
-![Fingerprint](https://github.com/kmkittu/TerraformLB/blob/main/Add%20public%20Key%20-%20Fingerprint.png)
+![Fingerprint](https://github.com/kmkittu/OKE/blob/main/Add%20public%20Key%20-%20Fingerprint.png)
 
 #### Region
 Region at which OCI account is associated. You can find this information in the console easily
 
 #### Compartment OCID
 Open the navigation menu, under Identity you can find compartments. Click that. It will list all the compartments available with the account. Choose the compartment on which we need to create instance. That will show the compartment details including OCID as shown in the picture.
-![Compartment](https://github.com/kmkittu/TerraformLB/blob/main/Compartment%20OCID.png)
+
+![Compartment](https://github.com/kmkittu/OKE/blob/main/Compartment%20OCID.png)
 
 
