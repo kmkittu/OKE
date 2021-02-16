@@ -95,7 +95,7 @@ Edit vcn.tf file and modify the below attributes with above collected values.
 
 ## 3) Check the integrity of the code 
 
-Execute "terraform plan" command. OKE cluster will create instances. The plan command will ask for Public key which will be used by all cluster instances. Provide the public key.
+Execute "terraform plan" command. OKE cluster will create instances. The plan command will ask for Public key which will be used by all cluster instances. Provide the SSH public key.
 
         # terraform plan
         var.node_pool_ssh_public_key
@@ -246,9 +246,9 @@ Execute "terraform plan" command. OKE cluster will create instances. The plan co
 
 ## 4) Execute the Terraform script 
 
-Execute "terraform apply" command.
+Execute "terraform apply" command. It will as for the SSH public key which will be used by cluster instances.
 
-        [root@terraform oke]# terraform apply
+        [root@terraform oke]# terraform apply -auto-approve
         var.node_pool_ssh_public_key
         Enter a value: ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhqXpiwufmWCWjfP3r44hKOXeQut7sj7yRDbJW+dTwYL3ynOksAEBGRTsXAPtEc3s/btavVwhT+O5GwsPHKv3g1uPD4yw33wG+/aSFZ3IV1F1Vi0RG5ipHSlwecgmaoNGP2E3ZJnvG3Glp3wkERI+K9RusuvrpxxysQrGrhv0yLzFl55iE3hT2HUtKef/QVk9eSltKyTYFAHQRxSaBnoo10K6zVSuHet5PHA8FkmXgdho77weHi14L7fH+exKXscFSmznNF8YCeOe1hTNWbFMFT5SiLVuv2NHGOV/6eJqtk6qWhHHj3yZVUv/jKtfs2eTU+HsgsxBGKhiebzo598T8w== rsa-key-20170125
 
@@ -846,12 +846,6 @@ Execute "terraform apply" command.
         in a future version of Terraform. To silence this warning, move the provider
         version constraint into the required_providers block.
 
-        Do you want to perform these actions?
-        Terraform will perform the actions described above.
-        Only 'yes' will be accepted to approve.
-
-        Enter a value: yes
-
         oci_core_virtual_network.oke-vcn: Creating...
         oci_core_virtual_network.oke-vcn: Creation complete after 0s [id=ocid1.vcn.oc1.ap-mumbai-1.amaaaaaaulymzmiabyun5tgtxeiqr7nezopo255kaz3yvpiqr6mmafaicb6q]
         data.oci_core_route_tables.oke_route_tables: Reading...
@@ -1423,3 +1417,5 @@ Execute "terraform apply" command.
         },
         ])
         cluster_id = "ocid1.cluster.oc1.ap-mumbai-1.aaaaaaaaae4dooddmfqtezbyg4zwkzjzg44tqy3fg44tkndbhcqtgzbzhezg"
+
+Terraform plan is completed successfully. We can validate it by logging into cloud portal.
