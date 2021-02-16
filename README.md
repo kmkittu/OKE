@@ -49,14 +49,32 @@ Generate Public Key with Pem(Privacy Enhanced Mail) format
     -rw-r--r-- 1 oracle oinstall 1679 Apr  3 07:35 oci_key.pem
     -rw-r--r-- 1 oracle oinstall  451 Apr  3 07:40 oci_key_public.pem
 
+Login into OCI cloud consile, click user settings. 
+
+![user settings ] (https://github.com/kmkittu/OKE/blob/main/user%20settings.png)
+
+In the page click API Key
+
+![api key] (https://github.com/kmkittu/OKE/blob/main/user%20settings.png)
+
+Click "Add API Key" button
+
+![api key button](https://github.com/kmkittu/OKE/blob/main/user%20add%20public%20key.png)
+
+Now our public key become part of OCI. Once the key is added it will listed along with Fingerprint.
+
 #### Fingerprint   
 You can get the key's fingerprint with the following OpenSSL command. If you're using Windows, you'll need to install Git Bash for Windows and run the command with that tool.
 
-    openssl rsa -pubout -outform DER -in ~/.oci/oci_api_key.pem | openssl md5 -c
+    openssl rsa -pubout -outform DER -in oci_key_public.pem | openssl md5 -c
 
 Also in other way when you upload the public key in the Console (In the user details page) , the fingerprint is also automatically displayed there. It looks something like this: 12:34:56:78:90:ab:cd:ef:12:34:56:78:90:ab:cd:ef
 
 ![Fingerprint](https://github.com/kmkittu/OKE/blob/main/Add%20public%20Key%20-%20Fingerprint.png)
+
+### SSH public key pair
+
+Create another set of SSH public key pair. This key will be used for compute instance SSH access. We will be specifying public key will creating the instance. Private key will be specified while connecting to the instance.
 
 #### Region
 Region at which OCI account is associated. You can find this information in the console easily
@@ -90,12 +108,13 @@ Edit vcn.tf file and modify the below attributes with above collected values.
 
         variable "user_ocid" { default = "ocid1.user.oc1..aaaaaaaan6dokkau7zyiemiggmkht2vvkvhgij3usqnhms5jvddm6h6tbfza"}
         variable "fingerprint" { default = "2f:80:77:4c:30:8c:5c:e7:d9:94:68:f3:db:3a:ab:25"}
-        variable "private_key_path" { default = "/root/.oci/oci_api_key.pem"}  ===> Specify path and 
         variable "region" {default = "ap-mumbai-1"}
+        variable "private_key_path" { default = "/root/.oci/oci_api_key.pem"}  ===> Specify private key created earlier along with path
+        
 
 ## 3) Check the integrity of the code 
 
-Execute "terraform plan" command. OKE cluster will create instances. The plan command will ask for Public key which will be used by all cluster instances. Provide the SSH public key.
+Execute "terraform plan" command. OKE cluster will create instances. The plan command will ask for Public key which will be used by all cluster instances. Provide the SSH public key that we had created earlier.
 
         # terraform plan
         var.node_pool_ssh_public_key
