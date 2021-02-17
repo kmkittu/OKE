@@ -27,6 +27,7 @@ The user OCID is shown under User Information. Click Copy to copy it to your cli
 ![User OCID](https://github.com/kmkittu/OKE/blob/main/User%20OCID.png)
 
 #### Private key 
+
 SSH key pair is required to login into OCI console
 If SSH key pair is not created, then follow the below steps.
 Login into any Linux machine and execute openssh command.
@@ -68,13 +69,41 @@ You can get the key's fingerprint with the following OpenSSL command. If you're 
 
     openssl rsa -pubout -outform DER -in oci_key_public.pem | openssl md5 -c
 
-Also in other way when you upload the public key in the Console (In the user details page) , the fingerprint is also automatically displayed there. It looks something like this: 12:34:56:78:90:ab:cd:ef:12:34:56:78:90:ab:cd:ef
+Also in other way when you upload the public key in the Console (As you did in the user details page) , the fingerprint is also automatically displayed there. It looks something like this: 12:34:56:78:90:ab:cd:ef:12:34:56:78:90:ab:cd:ef
 
 ![Fingerprint](https://github.com/kmkittu/OKE/blob/main/Add%20public%20Key%20-%20Fingerprint.png)
 
 ### SSH public key pair
 
 Create another set of SSH public key pair. This key will be used for compute instance SSH access. We will be specifying public key will creating the instance. Private key will be specified while connecting to the instance.
+
+        # ssh-keygen
+        Generating public/private rsa key pair.
+        Enter file in which to save the key (/root/.ssh/id_rsa):
+        Enter passphrase (empty for no passphrase):
+        Enter same passphrase again:
+        Your identification has been saved in /root/.ssh/id_rsa.
+        Your public key has been saved in /root/.ssh/id_rsa.pub.
+        The key fingerprint is:
+        SHA256:2rVDTujOKBMWspEdFCKg8/omlPVhFOYRsZ/T+nDunHk root@terraform
+        The key's randomart image is:
+        +---[RSA 2048]----+
+        |+ ..oB+          |
+        |.. .+.o          |
+        |o  o.+           |
+        | o+.oo. o.       |
+        |  ++o..+S.+      |
+        | +. o. +o= .     |
+        |o  . ..oo.+      |
+        |... o  +* oE     |
+        | o.  o. +B.      |
+        +----[SHA256]-----+
+        # ls -lrt /root/.ssh/
+        total 12
+        -rw-------. 1 root root  550 Jan 29 09:27 authorized_keys
+        -rw-------. 1 root root 1679 Feb 17 06:56 id_rsa
+        -rw-r--r--. 1 root root  396 Feb 17 06:56 id_rsa.pub
+
 
 #### Region
 Region at which OCI account is associated. You can find this information in the console easily
@@ -114,7 +143,7 @@ Edit vcn.tf file and modify the below attributes with above collected values.
 
 ## 3) Check the integrity of the code 
 
-Execute "terraform plan" command. OKE cluster will create instances. The plan command will ask for Public key which will be used by all cluster instances. Provide the SSH public key that we had created earlier.
+Execute "terraform plan" command. OKE cluster will create instances. The plan command will ask for Public key which will be used by all cluster instances. Provide the SSH public key (id_rsa.pub) that we had created earlier.
 
         # terraform plan
         var.node_pool_ssh_public_key
