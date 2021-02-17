@@ -52,11 +52,11 @@ Generate Public Key with Pem(Privacy Enhanced Mail) format
 
 Login into OCI cloud consile, click user settings. 
 
-![user settings ] (https://github.com/kmkittu/OKE/blob/main/user%20settings.png)
+![user settings ](https://github.com/kmkittu/OKE/blob/main/user%20settings.png)
 
 In the page click API Key
 
-![api key] (https://github.com/kmkittu/OKE/blob/main/user%20settings.png)
+![api key](https://github.com/kmkittu/OKE/blob/main/user%20settings.png)
 
 Click "Add API Key" button
 
