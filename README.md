@@ -58,18 +58,18 @@ In the page click API Key
 
 ![api key](https://github.com/kmkittu/OKE/blob/main/user%20API%20keys.png)
 
-Click "Add API Key" button
+Click "Add API Key" button. Paste the oci_key_public.pem there.
 
 ![api key button](https://github.com/kmkittu/OKE/blob/main/user%20add%20public%20key.png)
 
 Now our public key become part of OCI. Once the key is added it will listed along with Fingerprint.
 
-#### Fingerprint   
-You can get the key's fingerprint with the following OpenSSL command. If you're using Windows, you'll need to install Git Bash for Windows and run the command with that tool.
+#### Fingerprint  
+When you upload the public key in the Console (As you did in the user details page) , the fingerprint is also automatically displayed there. It looks something like this: 12:34:56:78:90:ab:cd:ef:12:34:56:78:90:ab:cd:ef
+
+You can also get the key's fingerprint with the following OpenSSL command. If you're using Windows, you'll need to install Git Bash for Windows and run the command with that tool.
 
     openssl rsa -pubout -outform DER -in oci_key_public.pem | openssl md5 -c
-
-Also in other way when you upload the public key in the Console (As you did in the user details page) , the fingerprint is also automatically displayed there. It looks something like this: 12:34:56:78:90:ab:cd:ef:12:34:56:78:90:ab:cd:ef
 
 ![Fingerprint](https://github.com/kmkittu/OKE/blob/main/Add%20public%20Key%20-%20Fingerprint.png)
 
@@ -138,7 +138,7 @@ Edit vcn.tf file and modify the below attributes with above collected values.
         variable "user_ocid" { default = "ocid1.user.oc1..aaaaaaaan6dokkau7zyiemiggmkht2vvkvhgij3usqnhms5jvddm6h6tbfza"}
         variable "fingerprint" { default = "2f:80:77:4c:30:8c:5c:e7:d9:94:68:f3:db:3a:ab:25"}
         variable "region" {default = "ap-mumbai-1"}
-        variable "private_key_path" { default = "/root/.oci/oci_api_key.pem"}  ===> Specify private key created earlier along with path
+        variable "private_key_path" { default = "/root/.oci/oci_key.pem"}  ===> Specify private key created earlier along with path
         
 
 ## 3) Check the integrity of the code 
@@ -294,7 +294,7 @@ Execute "terraform plan" command. OKE cluster will create instances. The plan co
 
 ## 4) Execute the Terraform script 
 
-Execute "terraform apply" command. It will as for the SSH public key which will be used by cluster instances.
+Execute "terraform apply" command. It will as for the SSH public key which will be used by cluster instances. Provide the SSH public key (id_rsa.pub) that we had created earlier.
 
         [root@terraform oke]# terraform apply -auto-approve
         var.node_pool_ssh_public_key
